@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
-const useTestStore = create((set) => ({
-  testValue: false,
-  setTestValue: (set: any) => (state: any) => ({ testValue: !state.testValue})
+const useSetupStore = create((set) => ({
+  isUserLoggedIn: false,
+  setIsUserLoggedIn: (set: any) => (state: any) => ({ isUserLoggedIn: !state.isUserLoggedIn})
 }));
 
-export default useTestStore
+export default useSetupStore

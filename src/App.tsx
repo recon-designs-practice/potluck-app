@@ -1,17 +1,11 @@
 import React from 'react';
-import { Button } from '@mui/material'
-import styled from '@emotion/styled'
-
-const StyledButton = styled(Button)`
-  // background: green;
-`
+import { Layout } from './components';
 
 function App() {
   return (
-    <div>
+    <Layout>
       <h1>App component</h1>
-      <StyledButton variant='contained'>Click me</StyledButton>
-    </div>
+    </Layout>
   );
 }
 

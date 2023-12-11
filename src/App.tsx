@@ -1,12 +1,17 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { SignUpPage, LogInPage, DashboardPage, ErrorPage } from "./pages";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { Layout } from "./components";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <DashboardPage />,
+    element: (
+      <ProtectedRoute>
+        <DashboardPage />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {

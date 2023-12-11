@@ -3,7 +3,9 @@ import styled from "@emotion/styled";
 import useSetupStore from "../../stores/store";
 import { Button } from "@mui/material";
 
-type Props = {};
+type Props = {
+  children?: React.ReactNode;
+};
 
 const StyledHeader = styled("header")`
   display: flex;
@@ -12,9 +14,9 @@ const StyledHeader = styled("header")`
 
 const StyledButton = styled(Button)`
   align-self: center;
-`
+`;
 
-export default function Header({}: Props) {
+export default function Header({ children }: Props) {
   // @ts-expect-error
   const isLoggedIn = useSetupStore((state) => state.isLoggedIn);
   // @ts-expect-error
@@ -22,10 +24,16 @@ export default function Header({}: Props) {
   console.log(isLoggedIn);
   return (
     <StyledHeader>
-      <h2>Header</h2>
-      <StyledButton onClick={setIsLoggedIn} variant="contained">
-        {isLoggedIn ? 'Log out' : 'Log in'}
-      </StyledButton>
+      {children ? (
+        children
+      ) : (
+        <>
+          <h2>Header</h2>
+          <StyledButton onClick={setIsLoggedIn} variant="contained">
+            {isLoggedIn ? "Log out" : "Log in"}
+          </StyledButton>
+        </>
+      )}
     </StyledHeader>
   );
 }

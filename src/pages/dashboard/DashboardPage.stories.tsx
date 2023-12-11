@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import DashboardPage from ".";
 
 export const Page: StoryObj<typeof DashboardPage> = {
-  name: "Dashboard",
+  name: "Page",
   render: (args: any) => <DashboardPage {...args} />,
 };
 

@@ -3,10 +3,10 @@ import HeroSection from "./heroSection";
 
 type Props = {};
 
-export default function DashboardPage({}: Props) {
+export default function SignUpPage({}: Props) {
   return (
     <>
-      <p>Dashboard page</p>
+      <p>Sign up page</p>
       <HeroSection />
     </>
   );

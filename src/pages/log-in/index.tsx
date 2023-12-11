@@ -1,9 +1,13 @@
 import React from 'react'
+import HeroSection from './heroSection'
 
 type Props = {}
 
 export default function LogInPage({}: Props) {
   return (
-    <div><h1>Log in page</h1></div>
+    <div>
+      <p>Log in page</p>
+      <HeroSection />
+    </div>
   )
 }

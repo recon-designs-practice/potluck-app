@@ -5,9 +5,9 @@ type Props = {}
 
 export default function LogInPage({}: Props) {
   return (
-    <div>
+    <main>
       <p>Log in page</p>
       <HeroSection />
-    </div>
+    </main>
   )
 }

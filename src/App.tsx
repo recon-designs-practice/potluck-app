@@ -1,11 +1,33 @@
-import React from 'react';
-import { Layout } from './components';
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { SignUpPage, LogInPage, DashboardPage, ErrorPage } from "./pages";
+import { Layout } from "./components";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <DashboardPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/log-in",
+    element: <LogInPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/sign-in",
+    element: <SignUpPage />,
+    errorElement: <ErrorPage />,
+  },
+]);
 
 function App() {
   return (
-    <Layout>
-      <h1>App component</h1>
-    </Layout>
+    <div>
+      <Layout>
+        <RouterProvider router={router} />
+      </Layout>
+    </div>
   );
 }
 

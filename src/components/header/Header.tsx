@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import useSetupStore from "../../stores/store";
 import useUserStore from "../../stores/userStore";
 import { auth, signOut, signInWithPopup, provider } from "../../firebase";
 import { Button } from "@mui/material";
@@ -26,21 +25,13 @@ export default function Header({ children }: Props) {
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
   const navigate = useNavigate();
 
+  // console.log("From Header: ", currentUser);
+
   const handleSignIn = () => {
     signInWithPopup(auth, provider)
       .then((result: any) => {
-        const { displayName, email, metadata, photoURL, uid } = result.user;
         console.log(`${result.user.displayName} has signed in.`);
 
-        const user = {
-          displayName,
-          email,
-          metadata,
-          photoURL,
-          uid,
-        };
-
-        setCurrentUser(user);
         navigate("/");
       })
       .catch((error) => console.log(error.code, error.message));
@@ -50,7 +41,9 @@ export default function Header({ children }: Props) {
     signOut(auth)
       .then(() => {
         console.log("User has signed out.");
+
         setCurrentUser(null);
+
         navigate("/sign-up");
       })
       .catch((error) => console.log(error.code, error.message));

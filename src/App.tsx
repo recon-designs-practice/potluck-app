@@ -15,6 +15,20 @@ function App() {
       if (!user) {
         setCurrentUser(null);
       }
+
+      if (user) {
+        const { displayName, email, metadata, photoURL, uid } = user;
+
+        const newUser = {
+          displayName,
+          email,
+          metadata,
+          photoURL,
+          uid,
+        };
+
+        setCurrentUser(newUser);
+      }
     });
   }, []);
 

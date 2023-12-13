@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { FormControl, TextField, Button, Typography } from "@mui/material";
+import { FormControl, TextField, Button } from "@mui/material";
+import { Form } from "../../../components";
 
 type Props = {};
 
-const Form = styled("form")`
+const TheForm = styled("form")`
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -38,10 +39,7 @@ export default function LoginForm({}: Props) {
 
   return (
     <FormWrapper>
-      <Form onSubmit={handleSubmit}>
-        <Typography variant="h5" fontWeight="bold">
-          Log in
-        </Typography>
+      <Form title="Log in" onsubmit={handleSubmit}>
         <FormControl>
           <TextField
             label="Email"
@@ -63,18 +61,21 @@ export default function LoginForm({}: Props) {
         <Button type="submit" variant="contained" size="large">
           Log in
         </Button>
-        <Button
-          type="submit"
-          variant="contained"
-          style={{
-            background: "none",
-            color: "#1976d2",
-            border: "2px solid #1976d2",
-          }}
-        >
-          Register
-        </Button>
       </Form>
+      <Button
+        type="button"
+        variant="contained"
+        style={{
+          marginTop: "12px",
+          width: "100%",
+          background: "none",
+          color: "#1976d2",
+          border: "2px solid #1976d2",
+        }}
+        onClick={() => alert("Register button clicked.")}
+      >
+        Register
+      </Button>
     </FormWrapper>
   );
 }

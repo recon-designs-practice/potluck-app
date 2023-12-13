@@ -12,6 +12,7 @@ type Props = {
 const StyledHeader = styled("header")`
   box-sizing: border-box;
   padding: 20px 20px;
+  border: 2px solid orange;
 
   @media (min-width: 600px) {
     padding: 32px 40px;
@@ -32,16 +33,6 @@ export default function Header({ children }: Props) {
   // @ts-expect-error
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
   const navigate = useNavigate();
-
-  const handleSignIn = () => {
-    signInWithPopup(auth, provider)
-      .then((result: any) => {
-        console.log(`${result.user.displayName} has signed in.`);
-
-        navigate("/");
-      })
-      .catch((error) => console.log(error.code, error.message));
-  };
 
   const handleSignOut = () => {
     signOut(auth)

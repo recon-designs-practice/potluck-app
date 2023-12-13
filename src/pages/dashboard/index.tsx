@@ -25,11 +25,11 @@ export default function DashboardPage({}: Props) {
         Add event
       </Button>
       {allEvents && (
-        <ul>
+        <div>
           {allEvents.map((event: any, idx: Number) => {
             return <Card event={event} />;
           })}
-        </ul>
+        </div>
       )}
     </main>
   );

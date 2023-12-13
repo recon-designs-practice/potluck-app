@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { auth, firestoreDb, onAuthStateChanged } from "./firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import useUserStore from "./stores/userStore";
 import useEventsStore from "./stores/eventsStore";
 import { SignUpPage, LogInPage, DashboardPage, ErrorPage } from "./pages";
@@ -11,8 +11,6 @@ import { Layout } from "./components";
 function App() {
   // @ts-expect-error
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
-  // @ts-expect-error
-  const allEvents = useEventsStore((state) => state.allEvents);
   // @ts-expect-error
   const addAllEvents = useEventsStore((state) => state.addAllEvents);
 
@@ -34,26 +32,19 @@ function App() {
     getAllDocs();
   }, []);
 
-  // console.log(555, allEvents);
-
   React.useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (!user) {
         setCurrentUser(null);
       }
 
       if (user) {
-        const { displayName, email, metadata, photoURL, uid } = user;
+        const docRef = doc(firestoreDb, "users", user.uid);
+        const documentSnapshot = await getDoc(docRef);
 
-        const newUser = {
-          displayName,
-          email,
-          metadata,
-          photoURL,
-          uid,
-        };
-
-        setCurrentUser(newUser);
+        if (documentSnapshot.exists()) {
+          setCurrentUser(documentSnapshot.data());
+        }
       }
     });
   }, []);

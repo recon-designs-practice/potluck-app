@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { doc, getDoc } from "firebase/firestore";
-import { firestoreDb } from "../../firebase";
+// import { firestoreDb } from "../../firebase";
 import { Typography } from "@mui/material";
 
 type Props = {
@@ -11,18 +11,6 @@ type Props = {
 const CardContainer = styled("div")`
   border: 2px solid gray;
 `;
-
-// const docRef = doc(db, "cities", "SF");
-// const docSnap = await getDoc(docRef);
-
-// const fetchData = async () => {
-//   const docRef = doc(firestoreDb, 'events', event.id);
-//   const docSnap = await getDoc(docRef);
-
-//   console.log(docSnap);
-// };
-
-// fetchData();
 
 export default function Card({ event }: Props) {
   const [createdByName, setCreatedByName] = React.useState(null);
@@ -41,10 +29,6 @@ export default function Card({ event }: Props) {
         setCreatedByName(user_name);
 
         setCreatorImage(user_image);
-
-        // console.log("Document data:", docSnap.data());
-      } else {
-        console.log("No document.");
       }
     }
 

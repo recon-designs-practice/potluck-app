@@ -1,8 +1,8 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 const useUserStore = create((set) => ({
   currentUser: null,
-  setCurrentUser: (stuffToAdd: any) => set({ currentUser: stuffToAdd})
-}))
+  setCurrentUser: (stuffToAdd: any) => set({ currentUser: stuffToAdd }),
+}));
 
-export default useUserStore
+export default useUserStore;

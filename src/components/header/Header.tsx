@@ -70,7 +70,7 @@ export default function Header({ children }: Props) {
               }}
             >
               <Typography variant="h4" fontWeight="bold">
-                {currentUser ? currentUser.displayName : "Welcome"}
+                {currentUser ? currentUser.user_name : "Welcome"}
               </Typography>
             </div>
           </Grid>
@@ -93,20 +93,6 @@ export default function Header({ children }: Props) {
           </Grid>
         </Grid>
       )}
-
-      {/* {children ? (
-        children
-      ) : (
-        <>
-          <h2>Header</h2>
-          <StyledButton
-            onClick={currentUser ? handleSignOut : handleSignIn}
-            variant="contained"
-          >
-            {currentUser ? "Log out" : "Log in"}
-          </StyledButton>
-        </>
-      )} */}
     </StyledHeader>
   );
 }

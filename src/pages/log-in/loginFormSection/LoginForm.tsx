@@ -1,9 +1,24 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { auth, signOut, signInWithPopup, provider } from "../../../firebase";
+import {
+  auth,
+  signInWithPopup,
+  provider,
+  firestoreDb,
+} from "../../../firebase";
 import { useNavigate } from "react-router-dom";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  setDoc,
+  doc,
+} from "@firebase/firestore";
 import { FormControl, TextField, Button } from "@mui/material";
 import { Form } from "../../../components";
+import useUserStore from "../../../stores/userStore";
 
 type Props = {};
 
@@ -27,13 +42,81 @@ export default function LoginForm({}: Props) {
   const [emailValue, setEmailValue] = React.useState(null);
   const [passwordValue, setPasswordValue] = React.useState(null);
   const navigate = useNavigate();
+  // @ts-expect-error
+  const setCurrentUser = useUserStore((state) => state.setCurrentUser);
 
   const handleSubmit = () => {
     alert("Form has been submitted.");
   };
 
+  async function checkDocumentExists(userUID: any) {
+    const usersCollectionRef = collection(firestoreDb, "users");
+
+    const q = query(usersCollectionRef, where("user_uid", "==", userUID));
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async function addNewUserDocument(documentObj: any) {
+    const usersCollectionRef = collection(firestoreDb, "users");
+
+    const {
+      user_uid,
+      user_name,
+      user_email,
+      user_image,
+      user_phone,
+      user_rsvp_events,
+      user_created_events,
+    } = documentObj;
+
+    await setDoc(doc(usersCollectionRef, user_uid), {
+      user_uid,
+      user_name,
+      user_email,
+      user_image,
+      user_phone,
+      user_rsvp_events,
+      user_created_events,
+    });
+  }
+
   const handleGoogleSignIn = () => {
     signInWithPopup(auth, provider).then((result: any) => {
+      checkDocumentExists(result.user.uid).then(async (existsValue) => {
+        if (!existsValue) {
+          const { displayName, email, photoURL, uid } = result.user;
+
+          const newUserDocObj = {
+            user_uid: uid,
+            user_name: displayName,
+            user_email: email,
+            user_image: photoURL,
+            user_phone: {
+              is_phone_private: true,
+              phone_number: "555-555-1212",
+            },
+            user_rsvp_events: [],
+            user_created_events: [],
+          };
+
+          addNewUserDocument(newUserDocObj);
+
+          const docRef = doc(firestoreDb, "users", uid);
+          const documentSnapshot = await getDoc(docRef);
+
+          if (documentSnapshot.exists()) {
+            setCurrentUser(documentSnapshot.data());
+          }
+        }
+      });
+
       console.log(`${result.user.displayName} has signed in.`);
 
       navigate("/");

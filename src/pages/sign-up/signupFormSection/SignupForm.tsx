@@ -21,7 +21,7 @@ const FormWrapper = styled("div")`
   }
 `;
 
-export default function LoginForm({}: Props) {
+export default function SignupForm({}: Props) {
   const [emailValue, setEmailValue] = React.useState(null);
   const [passwordValue, setPasswordValue] = React.useState(null);
 
@@ -31,7 +31,7 @@ export default function LoginForm({}: Props) {
 
   return (
     <FormWrapper>
-      <Form title="Log in" onsubmit={handleSubmit}>
+      <Form title="Sign up" onsubmit={handleSubmit}>
         <FormControl>
           <TextField
             label="Email"
@@ -51,23 +51,9 @@ export default function LoginForm({}: Props) {
           />
         </FormControl>
         <Button type="submit" variant="contained" size="large">
-          Log in
+          Sign up
         </Button>
       </Form>
-      <Button
-        type="button"
-        variant="contained"
-        style={{
-          marginTop: "12px",
-          width: "100%",
-          background: "none",
-          color: "#1976d2",
-          border: "2px solid #1976d2",
-        }}
-        onClick={() => alert("Register button clicked.")}
-      >
-        Register
-      </Button>
     </FormWrapper>
   );
 }

@@ -45,7 +45,7 @@ export default function Header({ children }: Props) {
 
         setCurrentUser(null);
 
-        navigate("/sign-up");
+        navigate("/log-in");
       })
       .catch((error) => console.log(error.code, error.message));
   };

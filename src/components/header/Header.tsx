@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../stores/userStore";
 import { auth, signOut, signInWithPopup, provider } from "../../firebase";
-import { Button, Unstable_Grid2 as Grid } from "@mui/material";
+import { Button, Unstable_Grid2 as Grid, Typography } from "@mui/material";
 
 type Props = {
   children?: React.ReactNode;
@@ -47,7 +47,6 @@ export default function Header({ children }: Props) {
     signOut(auth)
       .then(() => {
         console.log("User has signed out.");
-
         setCurrentUser(null);
 
         navigate("/log-in");
@@ -70,7 +69,9 @@ export default function Header({ children }: Props) {
                 alignItems: "center",
               }}
             >
-              <h2 style={{ margin: "0px" }}>Header with grid</h2>
+              <Typography variant="h4" fontWeight="bold">
+                {currentUser ? currentUser.displayName : "Welcome"}
+              </Typography>
             </div>
           </Grid>
           <Grid xs={3}>

@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { auth, signOut, signInWithPopup, provider } from "../../../firebase";
+import { useNavigate } from "react-router-dom";
 import { FormControl, TextField, Button } from "@mui/material";
 import { Form } from "../../../components";
 
@@ -24,9 +26,18 @@ const FormWrapper = styled("div")`
 export default function LoginForm({}: Props) {
   const [emailValue, setEmailValue] = React.useState(null);
   const [passwordValue, setPasswordValue] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     alert("Form has been submitted.");
+  };
+
+  const handleGoogleSignIn = () => {
+    signInWithPopup(auth, provider).then((result: any) => {
+      console.log(`${result.user.displayName} has signed in.`);
+
+      navigate("/");
+    });
   };
 
   return (
@@ -39,6 +50,7 @@ export default function LoginForm({}: Props) {
             value={emailValue}
             // @ts-expect-error
             onChange={(e) => setEmailValue(e.target.value)}
+            disabled
           />
         </FormControl>
         <FormControl>
@@ -48,9 +60,10 @@ export default function LoginForm({}: Props) {
             value={passwordValue}
             // @ts-expect-error
             onChange={(e) => setPasswordValue(e.target.value)}
+            disabled
           />
         </FormControl>
-        <Button type="submit" variant="contained" size="large">
+        <Button type="submit" variant="contained" size="large" disabled>
           Log in
         </Button>
       </Form>
@@ -64,9 +77,9 @@ export default function LoginForm({}: Props) {
           color: "#1976d2",
           border: "2px solid #1976d2",
         }}
-        onClick={() => alert("Register button clicked.")}
+        onClick={handleGoogleSignIn}
       >
-        Register
+        Google
       </Button>
     </FormWrapper>
   );

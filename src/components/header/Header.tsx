@@ -83,12 +83,11 @@ export default function Header({ children }: Props) {
                 alignItems: "center",
               }}
             >
-              <StyledButton
-                onClick={currentUser ? handleSignOut : handleSignIn}
-                variant="contained"
-              >
-                {currentUser ? "Log out" : "Log in"}
-              </StyledButton>
+              {currentUser && (
+                <StyledButton onClick={handleSignOut} variant="outlined">
+                  Log out
+                </StyledButton>
+              )}
             </div>
           </Grid>
         </Grid>

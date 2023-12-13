@@ -10,6 +10,7 @@ type Props = {
 };
 
 const StyledHeader = styled("header")`
+  heigth: 64px;
   display: flex;
   justify-content: space-between;
 `;

@@ -152,13 +152,11 @@ export default function LoginForm({}: Props) {
       </Form>
       <Button
         type="button"
-        variant="contained"
+        variant="outlined"
+        size="large"
         style={{
           marginTop: "12px",
           width: "100%",
-          background: "none",
-          color: "#1976d2",
-          border: "2px solid #1976d2",
         }}
         onClick={handleGoogleSignIn}
       >

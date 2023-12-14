@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { auth, firestoreDb, onAuthStateChanged } from "./firebase";
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { collection, getDoc, doc, onSnapshot } from "firebase/firestore";
 import useUserStore from "./stores/userStore";
 import useEventsStore from "./stores/eventsStore";
 import { SignUpPage, LogInPage, DashboardPage, ErrorPage } from "./pages";
@@ -14,22 +14,24 @@ function App() {
   // @ts-expect-error
   const addAllEvents = useEventsStore((state) => state.addAllEvents);
 
+  //@ts-expect-error
   React.useEffect(() => {
-    async function getAllDocs() {
-      const querySnapshot = await getDocs(collection(firestoreDb, "events"));
+    const eventsCollectionRef = collection(firestoreDb, "events");
 
+    const unsubscribe = onSnapshot(eventsCollectionRef, (snapshot) => {
       const tempArr: any = [];
 
-      querySnapshot.forEach((doc) => {
+      snapshot.forEach((doc: any) => {
         tempArr.push({
           id: doc.id,
           ...doc.data(),
         });
       });
-      addAllEvents(tempArr);
-    }
 
-    getAllDocs();
+      addAllEvents(tempArr);
+    });
+
+    return () => unsubscribe;
   }, []);
 
   React.useEffect(() => {

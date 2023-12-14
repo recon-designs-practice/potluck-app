@@ -86,7 +86,7 @@ export default function Header({ children }: Props) {
     const newEventRef = doc(firestoreDb, "events", uniqueId);
 
     setDoc(newEventRef, {
-      event_name: "Christmas party2",
+      event_name: "Brand new listener 2",
       event_description:
         "A description should go here. Should be long enough to possibly wrap a time or two. Who knows. Let's see how this goes.",
       event_date: Timestamp.fromDate(new Date("December 25, 2023")),

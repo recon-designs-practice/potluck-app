@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { doc, getDoc } from "firebase/firestore";
-// import { firestoreDb } from "../../firebase";
+import { getDoc } from "firebase/firestore";
 import { Typography } from "@mui/material";
 
 type Props = {
@@ -15,7 +14,15 @@ const CardContainer = styled("div")`
 export default function Card({ event }: Props) {
   const [createdByName, setCreatedByName] = React.useState(null);
   const [creatorImage, setCreatorImage] = React.useState(null);
-  const { event_created_by } = event;
+  const {
+    event_created_by,
+    event_name,
+    event_description,
+    event_location,
+    event_date,
+  } = event;
+
+  const eventDate = event_date.toDate().toLocaleString();
 
   React.useEffect(() => {
     async function getOneDoc() {
@@ -38,10 +45,16 @@ export default function Card({ event }: Props) {
   return (
     <CardContainer>
       <Typography variant="h6" fontWeight="bold">
-        {createdByName ? createdByName : "Event name"}
+        {event_name ? event_name : "Event name"}
       </Typography>
       <Typography variant="body1" fontWeight="medium">
-        {event.event_description}
+        {event_description}
+      </Typography>
+      <Typography variant="body2" fontWeight="medium">
+        {event_location}
+      </Typography>
+      <Typography variant="body2" fontWeight="medium">
+        {eventDate ? eventDate : "Date:"}
       </Typography>
       <Typography variant="body2" fontWeight="regular">
         {`By ${createdByName ? createdByName : ""}`}

@@ -6,6 +6,9 @@ import useUserStore from "../../stores/userStore";
 import { auth, signOut, firestoreDb } from "../../firebase";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { Button, Unstable_Grid2 as Grid, Typography } from "@mui/material";
+// import HeaderFlyout from "./HeaderFlyout";
+import MenuClosed from "@mui/icons-material/MenuRounded";
+import MenuOpen from "@mui/icons-material/MenuOpenRounded";
 
 type Props = {
   children?: React.ReactNode;
@@ -13,6 +16,7 @@ type Props = {
 
 const StyledHeader = styled("header")`
   box-sizing: border-box;
+  position: relative;
   padding: 20px 20px;
 
   @media (min-width: 600px) {
@@ -28,11 +32,40 @@ const StyledButton = styled(Button)`
   align-self: center;
 `;
 
+const ButtonWrapper = styled("div")`
+  box-sizing: border-box;
+  position: relative;
+  height: 100%;
+  display: none;
+
+  @media (min-width: 900px) {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+  }
+`;
+
+const MenuIconWrapper = styled("div")`
+  box-sizing: border-box;
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  @media (min-width: 900px) {
+    background: green;
+    display: none;
+  }
+`;
+
 export default function Header({ children }: Props) {
   // @ts-expect-error
   const currentUser = useUserStore((state) => state.currentUser);
   // @ts-expect-error
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -67,55 +100,67 @@ export default function Header({ children }: Props) {
       );
   }
 
+  const menuIconStyles = {
+    cursor: "pointer",
+  };
+
   return (
     <StyledHeader>
       {children ? (
         children
       ) : (
-        <Grid container spacing={0}>
-          <Grid xs={9}>
-            <div
-              style={{
-                height: "100%",
-                display: "flex",
-                justifyContent: "start",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h4" fontWeight="bold">
-                {currentUser ? currentUser.user_name : "Welcome"}
-              </Typography>
-            </div>
-          </Grid>
-          <Grid xs={3}>
-            {currentUser && (
+        <>
+          {/* <HeaderFlyout /> */}
+          <Grid container spacing={2}>
+            <Grid xs={9} md={6}>
               <div
                 style={{
                   height: "100%",
                   display: "flex",
-                  justifyContent: "end",
+                  justifyContent: "start",
                   alignItems: "center",
-                  gap: "20px",
                 }}
               >
-                <StyledButton
-                  onClick={handleAddEvent}
-                  variant="contained"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Add event
-                </StyledButton>
-                <StyledButton
-                  onClick={handleSignOut}
-                  variant="outlined"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Log out
-                </StyledButton>
+                <Typography variant="h4" fontWeight="bold">
+                  {currentUser ? currentUser.user_name : "Welcome"}
+                </Typography>
               </div>
-            )}
+            </Grid>
+            <Grid xs={3} md={6}>
+              {currentUser && (
+                <ButtonWrapper>
+                  <StyledButton
+                    onClick={handleAddEvent}
+                    variant="contained"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    Add event
+                  </StyledButton>
+                  <StyledButton
+                    onClick={handleSignOut}
+                    variant="outlined"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    Log out
+                  </StyledButton>
+                </ButtonWrapper>
+              )}
+              <MenuIconWrapper>
+                {!isMenuOpen ? (
+                  <MenuClosed
+                    onClick={() => setIsMenuOpen((prevState) => !prevState)}
+                    style={menuIconStyles}
+                  />
+                ) : (
+                  <MenuOpen
+                    onClick={() => setIsMenuOpen((prevState) => !prevState)}
+                    style={menuIconStyles}
+                  />
+                )}
+              </MenuIconWrapper>
+            </Grid>
           </Grid>
-        </Grid>
+        </>
       )}
     </StyledHeader>
   );

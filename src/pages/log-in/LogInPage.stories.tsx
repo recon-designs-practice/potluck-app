@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import LogInPage from ".";
-import { Header } from "../../components";
+// import { Header } from "../../components";
 
 export const Page: StoryObj<typeof LogInPage> = {
   name: "Page",
@@ -13,7 +13,7 @@ const meta: Meta<typeof LogInPage> = {
   decorators: [
     Story => (
       <div>
-        <Header />
+        {/* <Header /> */}
         <Story />
       </div>
     )

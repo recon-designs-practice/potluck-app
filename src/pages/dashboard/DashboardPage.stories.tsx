@@ -13,7 +13,7 @@ const meta: Meta<typeof DashboardPage> = {
   decorators: [
     Story => (
       <div>
-        <Header />
+        {/* <Header /> */}
         <Story />
       </div>
     )

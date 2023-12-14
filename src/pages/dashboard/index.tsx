@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import useEventsStore from "../../stores/eventsStore";
+// import { useParams } from 'react-router-dom'
 import { Card } from "../../components";
 import { Unstable_Grid2 } from "@mui/material";
 const Grid = Unstable_Grid2;
@@ -24,6 +25,9 @@ const Main = styled("main")`
 export default function DashboardPage({}: Props) {
   // @ts-expect-error
   const allEvents = useEventsStore((state) => state.allEvents);
+  // let userId = useParams()
+
+  // console.log(444, userId)
 
   return (
     <Main>

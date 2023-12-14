@@ -6,9 +6,8 @@ import useUserStore from "../../stores/userStore";
 import { auth, signOut, firestoreDb } from "../../firebase";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { Button, Unstable_Grid2 as Grid, Typography } from "@mui/material";
-// import HeaderFlyout from "./HeaderFlyout";
-import MenuClosed from "@mui/icons-material/MenuRounded";
-import MenuOpen from "@mui/icons-material/MenuOpenRounded";
+import LogOutIcon from "@mui/icons-material/LogoutRounded";
+import AddIcon from "@mui/icons-material/AddRounded";
 
 type Props = {
   children?: React.ReactNode;
@@ -53,6 +52,7 @@ const MenuIconWrapper = styled("div")`
   display: flex;
   justify-content: end;
   align-items: center;
+  gap: 12px;
 
   @media (min-width: 900px) {
     background: green;
@@ -100,67 +100,64 @@ export default function Header({ children }: Props) {
       );
   }
 
-  const menuIconStyles = {
-    cursor: "pointer",
-  };
-
   return (
     <StyledHeader>
       {children ? (
         children
       ) : (
-        <>
-          {/* <HeaderFlyout /> */}
-          <Grid container spacing={2}>
-            <Grid xs={9} md={6}>
-              <div
-                style={{
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "start",
-                  alignItems: "center",
-                }}
-              >
-                <Typography variant="h4" fontWeight="bold">
-                  {currentUser ? currentUser.user_name : "Welcome"}
-                </Typography>
-              </div>
-            </Grid>
-            <Grid xs={3} md={6}>
-              {currentUser && (
-                <ButtonWrapper>
-                  <StyledButton
-                    onClick={handleAddEvent}
-                    variant="contained"
-                    style={{ fontWeight: "bold" }}
-                  >
-                    Add event
-                  </StyledButton>
-                  <StyledButton
-                    onClick={handleSignOut}
-                    variant="outlined"
-                    style={{ fontWeight: "bold" }}
-                  >
-                    Log out
-                  </StyledButton>
-                </ButtonWrapper>
-              )}
-              <MenuIconWrapper>
-                {!isMenuOpen ? (
-                  <MenuClosed
-                    onClick={() => setIsMenuOpen((prevState) => !prevState)}
-                    style={menuIconStyles}
-                  />
-                ) : (
-                  <MenuOpen
-                    onClick={() => setIsMenuOpen((prevState) => !prevState)}
-                    style={menuIconStyles}
-                  />
-                )}
-              </MenuIconWrapper>
-            </Grid>
+        <Grid container spacing={2}>
+          <Grid xs={9} md={6}>
+            <div
+              style={{
+                height: "100%",
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h4" fontWeight="bold">
+                {currentUser ? currentUser.user_name : "Welcome"}
+              </Typography>
+            </div>
           </Grid>
-        </>
+          <Grid xs={3} md={6}>
+            {currentUser && (
+              <ButtonWrapper>
+                <StyledButton
+                  onClick={handleAddEvent}
+                  variant="contained"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Add event
+                </StyledButton>
+                <StyledButton
+                  onClick={handleSignOut}
+                  variant="outlined"
+                  style={{ fontWeight: "bold" }}
+                >
+                  Log out
+                </StyledButton>
+              </ButtonWrapper>
+            )}
+            <MenuIconWrapper>
+              {currentUser && (
+                <>
+                  <AddIcon
+                    style={{ cursor: "pointer" }}
+                    color="primary"
+                    fontSize="large"
+                    onClick={handleAddEvent}
+                  />
+                  <LogOutIcon
+                    style={{ cursor: "pointer" }}
+                    color="primary"
+                    onClick={handleSignOut}
+                  />
+                </>
+              )}
+            </MenuIconWrapper>
+          </Grid>
+        </Grid>
       )}
     </StyledHeader>
   );

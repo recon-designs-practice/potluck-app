@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../stores/userStore";
+import useEventsStore from "../../stores/eventsStore";
 import { auth, signOut, firestoreDb } from "../../firebase";
 import { doc, setDoc, updateDoc, Timestamp } from "firebase/firestore";
 import { Button, Unstable_Grid2 as Grid, Typography } from "@mui/material";
@@ -62,6 +63,8 @@ const MenuIconWrapper = styled("div")`
 
 export default function Header({ children }: Props) {
   // @ts-expect-error
+  const allEvents = useEventsStore((state) => state.allEvents);
+  // @ts-expect-error
   const currentUser = useUserStore((state) => state.currentUser);
   // @ts-expect-error
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
@@ -86,7 +89,7 @@ export default function Header({ children }: Props) {
     const newEventRef = doc(firestoreDb, "events", uniqueId);
 
     setDoc(newEventRef, {
-      event_name: "Brand new listener 2",
+      event_name: `Christmast party ${allEvents.length + 1}`,
       event_description:
         "A description should go here. Should be long enough to possibly wrap a time or two. Who knows. Let's see how this goes.",
       event_date: Timestamp.fromDate(new Date("December 25, 2023")),

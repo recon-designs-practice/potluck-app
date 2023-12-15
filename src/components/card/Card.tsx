@@ -82,10 +82,11 @@ export default function Card({ event }: Props) {
           <Button
             variant="outlined"
             onClick={() => alert("RSVP button clicked.")}
+            disabled
           >
             RSVP
           </Button>
-          <Button onClick={() => alert("View event button clicked.")}>
+          <Button onClick={() => alert("View event button clicked.")} disabled>
             View event
           </Button>
         </div>

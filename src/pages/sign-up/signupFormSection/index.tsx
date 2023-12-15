@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import SignupForm from "./SignupForm";
 
-type Props = {};
+// type Props = {};
 
 const SectionContainer = styled("div")`
   box-sizing: border-box;
@@ -21,7 +21,7 @@ const SectionContainer = styled("div")`
   }
 `;
 
-export default function SignUpFormSection({}: Props) {
+export default function SignUpFormSection() {
   return (
     <SectionContainer>
       <SignupForm />

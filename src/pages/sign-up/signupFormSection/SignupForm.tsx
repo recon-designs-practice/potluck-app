@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { FormControl, TextField, Button } from "@mui/material";
 import { Form } from "../../../components";
 
-type Props = {};
+// type Props = {};
 
 const FormWrapper = styled("div")`
   grid-column: 2 / 12;
@@ -21,7 +21,7 @@ const FormWrapper = styled("div")`
   }
 `;
 
-export default function SignupForm({}: Props) {
+export default function SignupForm() {
   const [emailValue, setEmailValue] = React.useState(null);
   const [passwordValue, setPasswordValue] = React.useState(null);
 

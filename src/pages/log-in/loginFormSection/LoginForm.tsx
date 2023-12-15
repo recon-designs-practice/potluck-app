@@ -20,7 +20,7 @@ import { FormControl, TextField, Button } from "@mui/material";
 import { Form } from "../../../components";
 import useUserStore from "../../../stores/userStore";
 
-type Props = {};
+// type Props = {};
 
 const FormWrapper = styled("div")`
   grid-column: 2 / 12;
@@ -38,7 +38,7 @@ const FormWrapper = styled("div")`
   }
 `;
 
-export default function LoginForm({}: Props) {
+export default function LoginForm() {
   const [emailValue, setEmailValue] = React.useState(null);
   const [passwordValue, setPasswordValue] = React.useState(null);
   const navigate = useNavigate();
@@ -129,7 +129,7 @@ export default function LoginForm({}: Props) {
       
       navigate(`/dashboard/user/${user_uid}`)
     }
-  }, [currentUser])
+  }, [currentUser, navigate])
 
   return (
     <FormWrapper>

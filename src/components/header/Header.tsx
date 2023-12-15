@@ -68,7 +68,7 @@ export default function Header({ children }: Props) {
   const currentUser = useUserStore((state) => state.currentUser);
   // @ts-expect-error
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
   const handleSignOut = () => {

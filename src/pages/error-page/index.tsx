@@ -1,9 +1,9 @@
 import React from "react";
 import { useRouteError } from "react-router-dom";
 
-type Props = {};
+// type Props = {};
 
-export default function ErrorPage({}: Props) {
+export default function ErrorPage() {
   const routeError = useRouteError();
   console.log(routeError);
 

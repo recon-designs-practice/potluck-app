@@ -6,7 +6,7 @@ import { Card } from "../../components";
 import { Unstable_Grid2 } from "@mui/material";
 const Grid = Unstable_Grid2;
 
-type Props = {};
+// type Props = {};
 
 const Main = styled("main")`
   box-sizing: border-box;
@@ -22,7 +22,7 @@ const Main = styled("main")`
   }
 `;
 
-export default function DashboardPage({}: Props) {
+export default function DashboardPage() {
   // @ts-expect-error
   const allEvents = useEventsStore((state) => state.allEvents);
   // let userId = useParams()

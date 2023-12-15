@@ -43,6 +43,8 @@ export default function LoginForm({}: Props) {
   const [passwordValue, setPasswordValue] = React.useState(null);
   const navigate = useNavigate();
   // @ts-expect-error
+  const currentUser = useUserStore((state) => state.currentUser);
+  // @ts-expect-error
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
 
   const handleSubmit = () => {
@@ -118,10 +120,16 @@ export default function LoginForm({}: Props) {
       });
 
       console.log(`${result.user.displayName} has signed in.`);
-
-      navigate("/");
     });
   };
+
+  React.useEffect(() => {
+    if (currentUser) {
+      const { user_uid } = currentUser
+      
+      navigate(`/dashboard/user/${user_uid}`)
+    }
+  }, [currentUser])
 
   return (
     <FormWrapper>

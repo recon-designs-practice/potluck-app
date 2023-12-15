@@ -70,6 +70,11 @@ function App() {
             element={<LogInPage />}
             errorElement={<ErrorPage />}
           />
+          <Route
+            path="/dashboard/user/:userId"
+            element={<DashboardPage />}
+            errorElement={<ErrorPage />}
+          />
         </Routes>
       </Layout>
     </div>

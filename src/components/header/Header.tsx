@@ -6,9 +6,28 @@ import useUserStore from "../../stores/userStore";
 import useEventsStore from "../../stores/eventsStore";
 import { auth, signOut, firestoreDb } from "../../firebase";
 import { doc, setDoc, updateDoc, Timestamp } from "firebase/firestore";
-import { Button, Unstable_Grid2 as Grid, Typography } from "@mui/material";
-import LogOutIcon from "@mui/icons-material/LogoutRounded";
+import {
+  Button,
+  Unstable_Grid2 as Grid,
+  Typography,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemButton,
+  ListItemAvatar,
+  Avatar,
+} from "@mui/material";
+import {
+  LogoutRounded as LogOutIcon,
+  Person as PersonIcon,
+} from "@mui/icons-material";
+// import LogOutIcon from "@mui/icons-material/LogoutRounded";
 import AddIcon from "@mui/icons-material/AddRounded";
+import AddEventModal from "./AddEventModal";
+
+const emails = ["username@gmail.com", "user02@gmail.com"];
 
 type Props = {
   children?: React.ReactNode;
@@ -62,6 +81,7 @@ const MenuIconWrapper = styled("div")`
 `;
 
 export default function Header({ children }: Props) {
+  const [isNewEventModalOpen, setIsNewEventModalOpen] = React.useState(false);
   // @ts-expect-error
   const allEvents = useEventsStore((state) => state.allEvents);
   // @ts-expect-error
@@ -138,7 +158,9 @@ export default function Header({ children }: Props) {
             {currentUser && (
               <ButtonWrapper>
                 <StyledButton
-                  onClick={handleAddEvent}
+                  onClick={() =>
+                    setIsNewEventModalOpen((prevState) => !prevState)
+                  }
                   variant="contained"
                   style={{ fontWeight: "bold" }}
                 >
@@ -173,6 +195,43 @@ export default function Header({ children }: Props) {
           </Grid>
         </Grid>
       )}
+      <AddEventModal
+        isModalOpen={isNewEventModalOpen}
+        closeModal={() => setIsNewEventModalOpen((prevState) => !prevState)}
+      />
+      {/* <Dialog
+        onClose={() => setIsNewEventModalOpen((prevState) => !prevState)}
+        open={isNewEventModalOpen}
+      >
+        <DialogTitle>Set backup account</DialogTitle>
+        <List sx={{ pt: 0 }}>
+          {emails.map((email) => (
+            <ListItem disableGutters key={email}>
+              <ListItemButton onClick={() => alert("list item click fired")}>
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
+                    <PersonIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={email} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+          <ListItem disableGutters>
+            <ListItemButton
+              autoFocus
+              onClick={() => alert("list item click fired")}
+            >
+              <ListItemAvatar>
+                <Avatar>
+                  <AddIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Add account" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Dialog> */}
     </StyledHeader>
   );
 }

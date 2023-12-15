@@ -1,5 +1,9 @@
 import React from "react";
-import styled from "@emotion/styled";
+import { v4 as uuid } from "uuid";
+import { doc, setDoc, updateDoc, Timestamp } from "firebase/firestore";
+import { firestoreDb } from "../../firebase";
+import useUserStore from "../../stores/userStore";
+// import useEventsStore from "../../stores/eventsStore";
 import {
   Dialog,
   DialogTitle,
@@ -8,7 +12,6 @@ import {
   Button,
   List,
   ListItem,
-  Typography,
 } from "@mui/material";
 import { Form } from "../../components";
 
@@ -17,16 +20,49 @@ type Props = {
   closeModal?: () => void;
 };
 
-// type StateType = {
-//   eventName: String | null
-// }
-
 export default function AddEventModal({ isModalOpen, closeModal }: Props) {
-  // const [isNewEventModalOpen, setIsNewEventModalOpen] = React.useState(false);
+  // @ts-expect-error
+  const currentUser = useUserStore((state) => state.currentUser);
+  // const allEvents = useEventsStore((state) => state.allEvents);
   const [eventName, setEventName] = React.useState(null);
   const [eventDescription, setEventDescription] = React.useState(null);
-  const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState("sm");
+
+  async function handleAddEvent(e: any) {
+    e.preventDefault();
+    const { user_uid, user_rsvp_events, user_created_events } = currentUser;
+    const uniqueId = uuid();
+    const userDocumentRef = doc(firestoreDb, "users", user_uid);
+    const newEventRef = doc(firestoreDb, "events", uniqueId);
+
+    setDoc(newEventRef, {
+      event_name: eventName,
+      event_description: eventDescription,
+      event_date: Timestamp.fromDate(new Date("December 25, 2023")),
+      event_location: "Community room in the main building.",
+      event_created_by: userDocumentRef,
+      event_image:
+        "https://images.unsplash.com/photo-1583779791512-eeccdee5c5dd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWNkb25hbGRzfGVufDB8fDB8fHww",
+      event_rsvp_users: [userDocumentRef],
+    })
+      .then(() => console.log("Field with reference added successfully."))
+      .catch((error) =>
+        console.log("Error adding field with refernce.", error)
+      );
+
+    updateDoc(userDocumentRef, {
+      user_created_events: [...user_created_events, newEventRef],
+      user_rsvp_events: [...user_rsvp_events, newEventRef],
+    })
+      .then(() => console.log("Field with reference added successfully."))
+      .catch((error) =>
+        console.log("Error adding field with refernce.", error)
+      );
+
+    setEventName(null);
+    setEventDescription(null);
+    // @ts-expect-error
+    closeModal((prevState) => !prevState);
+  }
 
   return (
     <div>
@@ -35,12 +71,12 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
         onClose={() => closeModal((prevState) => !prevState)}
         // @ts-expect-error
         open={isModalOpen}
-        fullWidth={fullWidth}
-        // @ts-expect-error
-        maxWidth={maxWidth}
+        fullWidth={true}
+        maxWidth={"sm"}
       >
         <DialogTitle>Create event</DialogTitle>
-        <Form>
+        {/** @ts-expect-error */}
+        <Form onsubmit={(e) => handleAddEvent(e)}>
           <List>
             <ListItem>
               <FormControl fullWidth>
@@ -65,40 +101,12 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
               </FormControl>
             </ListItem>
             <ListItem>
-              <Button variant="contained" onClick={() => alert(`${eventName}, ${eventDescription}`)}>
+              <Button variant="contained" type="submit" size="large">
                 Create
               </Button>
             </ListItem>
           </List>
         </Form>
-        {/* <AddEventModal /> */}
-        {/* <List sx={{ pt: 0 }}>
-          {emails.map((email) => (
-            <ListItem disableGutters key={email}>
-              <ListItemButton onClick={() => alert("list item click fired")}>
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={email} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-          <ListItem disableGutters>
-            <ListItemButton
-              autoFocus
-              onClick={() => alert("list item click fired")}
-            >
-              <ListItemAvatar>
-                <Avatar>
-                  <AddIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Add account" />
-            </ListItemButton>
-          </ListItem>
-        </List> */}
       </Dialog>
     </div>
   );

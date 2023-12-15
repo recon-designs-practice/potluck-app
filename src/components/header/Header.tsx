@@ -1,33 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../stores/userStore";
-import useEventsStore from "../../stores/eventsStore";
-import { auth, signOut, firestoreDb } from "../../firebase";
-import { doc, setDoc, updateDoc, Timestamp } from "firebase/firestore";
-import {
-  Button,
-  Unstable_Grid2 as Grid,
-  Typography,
-  Dialog,
-  DialogTitle,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  ListItemAvatar,
-  Avatar,
-} from "@mui/material";
-import {
-  LogoutRounded as LogOutIcon,
-  Person as PersonIcon,
-} from "@mui/icons-material";
-// import LogOutIcon from "@mui/icons-material/LogoutRounded";
+import { auth, signOut } from "../../firebase";
+import { Button, Unstable_Grid2 as Grid, Typography } from "@mui/material";
+import { LogoutRounded as LogOutIcon } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/AddRounded";
 import AddEventModal from "./AddEventModal";
-
-const emails = ["username@gmail.com", "user02@gmail.com"];
 
 type Props = {
   children?: React.ReactNode;
@@ -83,12 +62,9 @@ const MenuIconWrapper = styled("div")`
 export default function Header({ children }: Props) {
   const [isNewEventModalOpen, setIsNewEventModalOpen] = React.useState(false);
   // @ts-expect-error
-  const allEvents = useEventsStore((state) => state.allEvents);
-  // @ts-expect-error
   const currentUser = useUserStore((state) => state.currentUser);
   // @ts-expect-error
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
-  // const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -101,38 +77,6 @@ export default function Header({ children }: Props) {
       })
       .catch((error) => console.log(error.code, error.message));
   };
-
-  async function handleAddEvent() {
-    const { user_uid, user_rsvp_events, user_created_events } = currentUser;
-    const uniqueId = uuid();
-    const userDocumentRef = doc(firestoreDb, "users", user_uid);
-    const newEventRef = doc(firestoreDb, "events", uniqueId);
-
-    setDoc(newEventRef, {
-      event_name: `Christmast party ${allEvents.length + 1}`,
-      event_description:
-        "A description should go here. Should be long enough to possibly wrap a time or two. Who knows. Let's see how this goes.",
-      event_date: Timestamp.fromDate(new Date("December 25, 2023")),
-      event_location: "Community room in the main building.",
-      event_created_by: userDocumentRef,
-      event_image:
-        "https://images.unsplash.com/photo-1583779791512-eeccdee5c5dd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWNkb25hbGRzfGVufDB8fDB8fHww",
-      event_rsvp_users: [userDocumentRef],
-    })
-      .then(() => console.log("Field with reference added successfully."))
-      .catch((error) =>
-        console.log("Error adding field with refernce.", error)
-      );
-
-    updateDoc(userDocumentRef, {
-      user_created_events: [...user_created_events, newEventRef],
-      user_rsvp_events: [...user_rsvp_events, newEventRef],
-    })
-      .then(() => console.log("Field with reference added successfully."))
-      .catch((error) =>
-        console.log("Error adding field with refernce.", error)
-      );
-  }
 
   return (
     <StyledHeader>
@@ -182,7 +126,10 @@ export default function Header({ children }: Props) {
                     style={{ cursor: "pointer" }}
                     color="primary"
                     fontSize="large"
-                    onClick={handleAddEvent}
+                    // onClick={handleAddEvent}
+                    onClick={() =>
+                      setIsNewEventModalOpen((prevState) => !prevState)
+                    }
                   />
                   <LogOutIcon
                     style={{ cursor: "pointer" }}

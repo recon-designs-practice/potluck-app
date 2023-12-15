@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { getDoc } from "firebase/firestore";
 import {
   Card as MUICard,
@@ -19,19 +18,15 @@ type Props = {
   event?: any;
 };
 
-const CardContainer = styled("div")`
-  border: 2px solid gray;
-`;
-
 export default function Card({ event }: Props) {
-  const [createdByName, setCreatedByName] = React.useState(null);
+  // const [createdByName, setCreatedByName] = React.useState(null);
   const [creatorImage, setCreatorImage] = React.useState(null);
-  const [isReadMoreOpen, setIsReadMoreOpen] = React.useState(false);
+  // const [isReadMoreOpen, setIsReadMoreOpen] = React.useState(false);
   const {
     event_created_by,
     event_name,
-    event_description,
-    event_location,
+    // event_description,
+    // event_location,
     event_date,
     event_image,
   } = event;
@@ -45,16 +40,18 @@ export default function Card({ event }: Props) {
 
       if (docSnap.exists()) {
         // @ts-expect-error
-        const { user_name, user_image } = docSnap.data();
+        // const { user_name, user_image } = docSnap.data();
+        const { user_image } = docSnap.data();
 
-        setCreatedByName(user_name);
+
+        // setCreatedByName(user_name);
 
         setCreatorImage(user_image);
       }
     }
 
     getOneDoc();
-  }, []);
+  });
 
   return (
     <MUICard variant="outlined">

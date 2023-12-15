@@ -32,7 +32,7 @@ function App() {
     });
 
     return () => unsubscribe;
-  }, []);
+  });
 
   React.useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -49,7 +49,7 @@ function App() {
         }
       }
     });
-  }, []);
+  });
 
   return (
     <div>

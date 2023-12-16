@@ -1,7 +1,7 @@
 ---
-name: Feature request
+name: New feature
 about: Suggest an idea for this project
-title: 'Feat:'
+title: 'feat:'
 labels: enhancement
 assignees: recondesigns
 

@@ -1,7 +1,7 @@
 ---
-name: Bug report
+name: Bug
 about: Create a report to help us improve
-title: "[ABug]"
+title: 'fix:'
 labels: bug
 assignees: recondesigns
 
@@ -15,10 +15,13 @@ Steps to reproduce the behavior:
 1. 
 
 **Expected behavior**
+n/a
 
 **Screenshots**
+n/a
 
 **AC**
 - [ ] 
 
 **Additional**
+n/a

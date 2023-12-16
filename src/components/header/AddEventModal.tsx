@@ -10,9 +10,12 @@ import {
   FormControl,
   TextField,
   Button,
+  IconButton,
   List,
   ListItem,
+  Box,
 } from "@mui/material";
+import { CloseRounded } from "@mui/icons-material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Form } from "../../components";
 
@@ -39,13 +42,13 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
     const newEventRef = doc(firestoreDb, "events", uniqueId);
 
     setDoc(newEventRef, {
-      event_name: eventName,
+      event_name: eventName ? eventName : null,
       // event_description: eventDescription,
       event_description: null,
       // @ts-expect-error
-      event_date: eventDate.format("MMMM D, YYYY (dddd)"),
-      event_time: eventTime,
-      event_location: eventLocation,
+      event_date: eventDate ? eventDate.format("MMM Do (ddd)") : null,
+      event_time: eventTime ? eventTime : null,
+      event_location: eventLocation ? eventLocation : null,
       event_created_by: userDocumentRef,
       event_image:
         "https://images.unsplash.com/photo-1583779791512-eeccdee5c5dd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWNkb25hbGRzfGVufDB8fDB8fHww",
@@ -84,6 +87,16 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
     closeModal((prevState) => !prevState);
   }
 
+  function handleCloseModalClick() {
+    setEventName(null);
+    // setEventDescription(null);
+    setEventDate(null);
+    setEventLocation(null);
+    setEventTime(null);
+    // @ts-expect-error
+    closeModal((prevState) => !prevState);
+  }
+
   function handleDateChange(date: any) {
     setEventDate(date);
   }
@@ -97,7 +110,19 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
         fullWidth={true}
         maxWidth={"sm"}
       >
-        <DialogTitle>Create event</DialogTitle>
+        <Box
+          sx={{
+            paddingRight: "8px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <DialogTitle>Create event</DialogTitle>
+          <IconButton onClick={handleCloseModalClick}>
+            <CloseRounded />
+          </IconButton>
+        </Box>
         {/** @ts-expect-error */}
         <Form onsubmit={(e) => handleAddEvent(e)}>
           <List>
@@ -123,12 +148,21 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
                 />
               </FormControl>
             </ListItem> */}
-            <ListItem>
+            <ListItem sx={{ gap: "20px" }}>
               <FormControl fullWidth>
                 <DatePicker
                   label="Date"
                   value={eventDate}
                   onChange={handleDateChange}
+                />
+              </FormControl>
+              <FormControl fullWidth>
+                <TextField
+                  label="Time"
+                  type="text"
+                  value={eventTime}
+                  // @ts-expect-error
+                  onChange={(e) => setEventTime(e.target.value)}
                 />
               </FormControl>
             </ListItem>
@@ -143,20 +177,21 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
                 />
               </FormControl>
             </ListItem>
-            <ListItem>
-              <FormControl fullWidth>
-                <TextField
-                  label="Time"
-                  type="text"
-                  value={eventTime}
-                  // @ts-expect-error
-                  onChange={(e) => setEventTime(e.target.value)}
-                />
-              </FormControl>
-            </ListItem>
-            <ListItem>
-              <Button variant="contained" type="submit" size="large">
+            <ListItem sx={{ gap: "20px" }}>
+              <Button
+                variant="contained"
+                type="submit"
+                size="large"
+                sx={{ fontWeight: "bold" }}
+              >
                 Create
+              </Button>
+              <Button
+                type="button"
+                size="large"
+                onClick={handleCloseModalClick}
+              >
+                Cancel
               </Button>
             </ListItem>
           </List>

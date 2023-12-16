@@ -26,8 +26,6 @@ export default function Card({ event }: Props) {
     event_image,
   } = event;
 
-  const eventDate = event_date.toDate().toLocaleString();
-
   React.useEffect(() => {
     async function getOneDoc() {
       const docRef = event_created_by;
@@ -52,7 +50,7 @@ export default function Card({ event }: Props) {
             {event_name}
           </Typography>
         }
-        subheader={eventDate}
+        subheader={event_date}
         disableTypography
         // @ts-expect-error
         avatar={<Avatar src={creatorImage} />}

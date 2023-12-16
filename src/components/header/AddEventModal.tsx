@@ -1,6 +1,6 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
-import { doc, setDoc, updateDoc, Timestamp } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { firestoreDb } from "../../firebase";
 import useUserStore from "../../stores/userStore";
 // import useEventsStore from "../../stores/eventsStore";
@@ -13,6 +13,7 @@ import {
   List,
   ListItem,
 } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { Form } from "../../components";
 
 type Props = {
@@ -26,6 +27,7 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
   // const allEvents = useEventsStore((state) => state.allEvents);
   const [eventName, setEventName] = React.useState(null);
   const [eventDescription, setEventDescription] = React.useState(null);
+  const [eventDate, setEventDate] = React.useState(null);
 
   async function handleAddEvent(e: any) {
     e.preventDefault();
@@ -37,7 +39,8 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
     setDoc(newEventRef, {
       event_name: eventName,
       event_description: eventDescription,
-      event_date: Timestamp.fromDate(new Date("December 25, 2023")),
+      // @ts-expect-error
+      event_date: eventDate.format("MMMM D, YYYY (dddd)"),
       event_location: "Community room in the main building.",
       event_created_by: userDocumentRef,
       event_image:
@@ -65,10 +68,15 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
   }
 
   function handleDialogOnClose() {
-    setEventName(null)
-    setEventDescription(null)
+    setEventName(null);
+    setEventDescription(null);
+    setEventDate(null);
     // @ts-expect-error
-    closeModal((prevState) => !prevState)
+    closeModal((prevState) => !prevState);
+  }
+
+  function handleDateChange(date: any) {
+    setEventDate(date);
   }
 
   return (
@@ -87,7 +95,7 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
             <ListItem>
               <FormControl fullWidth>
                 <TextField
-                  label="Event name"
+                  label="Name"
                   type="text"
                   value={eventName}
                   // @ts-expect-error
@@ -98,11 +106,20 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
             <ListItem>
               <FormControl fullWidth>
                 <TextField
-                  label="Event description"
+                  label="Description"
                   type="text"
                   value={eventDescription}
                   // @ts-expect-error
                   onChange={(e) => setEventDescription(e.target.value)}
+                />
+              </FormControl>
+            </ListItem>
+            <ListItem>
+              <FormControl fullWidth>
+                <DatePicker
+                  label="Date"
+                  value={eventDate}
+                  onChange={handleDateChange}
                 />
               </FormControl>
             </ListItem>

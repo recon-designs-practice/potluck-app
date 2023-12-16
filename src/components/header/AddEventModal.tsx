@@ -123,12 +123,21 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
                 />
               </FormControl>
             </ListItem> */}
-            <ListItem>
+            <ListItem sx={{ gap: "20px" }}>
               <FormControl fullWidth>
                 <DatePicker
                   label="Date"
                   value={eventDate}
                   onChange={handleDateChange}
+                />
+              </FormControl>
+              <FormControl fullWidth>
+                <TextField
+                  label="Time"
+                  type="text"
+                  value={eventTime}
+                  // @ts-expect-error
+                  onChange={(e) => setEventTime(e.target.value)}
                 />
               </FormControl>
             </ListItem>
@@ -140,17 +149,6 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
                   value={eventLocation}
                   // @ts-expect-error
                   onChange={(e) => setEventLocation(e.target.value)}
-                />
-              </FormControl>
-            </ListItem>
-            <ListItem>
-              <FormControl fullWidth>
-                <TextField
-                  label="Time"
-                  type="text"
-                  value={eventTime}
-                  // @ts-expect-error
-                  onChange={(e) => setEventTime(e.target.value)}
                 />
               </FormControl>
             </ListItem>

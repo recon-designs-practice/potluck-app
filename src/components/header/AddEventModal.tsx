@@ -10,9 +10,12 @@ import {
   FormControl,
   TextField,
   Button,
+  IconButton,
   List,
   ListItem,
+  Box,
 } from "@mui/material";
+import { CloseRounded } from "@mui/icons-material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Form } from "../../components";
 
@@ -107,7 +110,19 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
         fullWidth={true}
         maxWidth={"sm"}
       >
-        <DialogTitle>Create event</DialogTitle>
+        <Box
+          sx={{
+            paddingRight: "8px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <DialogTitle>Create event</DialogTitle>
+          <IconButton onClick={handleCloseModalClick}>
+            <CloseRounded />
+          </IconButton>
+        </Box>
         {/** @ts-expect-error */}
         <Form onsubmit={(e) => handleAddEvent(e)}>
           <List>
@@ -163,7 +178,12 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
               </FormControl>
             </ListItem>
             <ListItem sx={{ gap: "20px" }}>
-              <Button variant="contained" type="submit" size="large">
+              <Button
+                variant="contained"
+                type="submit"
+                size="large"
+                sx={{ fontWeight: "bold" }}
+              >
                 Create
               </Button>
               <Button

@@ -26,7 +26,7 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
   const currentUser = useUserStore((state) => state.currentUser);
   // const allEvents = useEventsStore((state) => state.allEvents);
   const [eventName, setEventName] = React.useState(null);
-  const [eventDescription, setEventDescription] = React.useState(null);
+  // const [eventDescription, setEventDescription] = React.useState(null);
   const [eventDate, setEventDate] = React.useState(null);
 
   async function handleAddEvent(e: any) {
@@ -38,7 +38,8 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
 
     setDoc(newEventRef, {
       event_name: eventName,
-      event_description: eventDescription,
+      // event_description: eventDescription,
+      event_description: null,
       // @ts-expect-error
       event_date: eventDate.format("MMMM D, YYYY (dddd)"),
       event_location: "Community room in the main building.",
@@ -62,14 +63,14 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
       );
 
     setEventName(null);
-    setEventDescription(null);
+    // setEventDescription(null);
     // @ts-expect-error
     closeModal((prevState) => !prevState);
   }
 
   function handleDialogOnClose() {
     setEventName(null);
-    setEventDescription(null);
+    // setEventDescription(null);
     setEventDate(null);
     // @ts-expect-error
     closeModal((prevState) => !prevState);
@@ -103,7 +104,7 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
                 />
               </FormControl>
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <FormControl fullWidth>
                 <TextField
                   label="Description"
@@ -113,7 +114,7 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
                   onChange={(e) => setEventDescription(e.target.value)}
                 />
               </FormControl>
-            </ListItem>
+            </ListItem> */}
             <ListItem>
               <FormControl fullWidth>
                 <DatePicker

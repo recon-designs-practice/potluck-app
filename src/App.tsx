@@ -57,17 +57,12 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<DashboardPage />}
+            element={<LogInPage />}
             errorElement={<ErrorPage />}
           />
           <Route
             path="/sign-up"
             element={<SignUpPage />}
-            errorElement={<ErrorPage />}
-          />
-          <Route
-            path="/log-in"
-            element={<LogInPage />}
             errorElement={<ErrorPage />}
           />
           <Route

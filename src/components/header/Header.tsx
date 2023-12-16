@@ -73,7 +73,7 @@ export default function Header({ children }: Props) {
         console.log("User has signed out.");
         setCurrentUser(null);
 
-        navigate("/log-in");
+        navigate("/");
       })
       .catch((error) => console.log(error.code, error.message));
   };

@@ -48,10 +48,10 @@ export default function Card({ event }: Props) {
       <CardHeader
         title={
           <Typography variant="h6" color="text.secondary" fontWeight="bold">
-            {event_name}
+            {event_name ? event_name : 'Add name'}
           </Typography>
         }
-        subheader={event_date}
+        subheader={event_date ? event_date : 'Add date'}
         disableTypography
         // @ts-expect-error
         avatar={<Avatar src={creatorImage} />}
@@ -66,13 +66,13 @@ export default function Card({ event }: Props) {
           color="text.secondary"
           sx={{ height: "40px", overflow: "hidden" }}
         >
-          {event_location}
+          {event_location ? event_location : 'Add location'}
         </Typography>
         <Typography variant="body1" mt={2} color="text.primary">
           Time
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {event_time}
+          {event_time ? event_time : 'Add time'}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

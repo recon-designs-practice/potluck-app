@@ -39,13 +39,13 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
     const newEventRef = doc(firestoreDb, "events", uniqueId);
 
     setDoc(newEventRef, {
-      event_name: eventName,
+      event_name: eventName ? eventName : null,
       // event_description: eventDescription,
       event_description: null,
       // @ts-expect-error
-      event_date: eventDate.format("MMMM D, YYYY (dddd)"),
-      event_time: eventTime,
-      event_location: eventLocation,
+      event_date: eventDate ? eventDate.format("MMMM D, YYYY (dddd)") : null,
+      event_time: eventTime ? eventTime : null,
+      event_location: eventLocation ? eventLocation : null,
       event_created_by: userDocumentRef,
       event_image:
         "https://images.unsplash.com/photo-1583779791512-eeccdee5c5dd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWNkb25hbGRzfGVufDB8fDB8fHww",
@@ -75,6 +75,16 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
   }
 
   function handleDialogOnClose() {
+    setEventName(null);
+    // setEventDescription(null);
+    setEventDate(null);
+    setEventLocation(null);
+    setEventTime(null);
+    // @ts-expect-error
+    closeModal((prevState) => !prevState);
+  }
+
+  function handleCloseModalClick() {
     setEventName(null);
     // setEventDescription(null);
     setEventDate(null);
@@ -152,9 +162,16 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
                 />
               </FormControl>
             </ListItem>
-            <ListItem>
+            <ListItem sx={{ gap: "20px" }}>
               <Button variant="contained" type="submit" size="large">
                 Create
+              </Button>
+              <Button
+                type="button"
+                size="large"
+                onClick={handleCloseModalClick}
+              >
+                Cancel
               </Button>
             </ListItem>
           </List>

@@ -43,7 +43,7 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
       // event_description: eventDescription,
       event_description: null,
       // @ts-expect-error
-      event_date: eventDate ? eventDate.format("MMMM D, YYYY (dddd)") : null,
+      event_date: eventDate ? eventDate.format("MMM Do (ddd)") : null,
       event_time: eventTime ? eventTime : null,
       event_location: eventLocation ? eventLocation : null,
       event_created_by: userDocumentRef,

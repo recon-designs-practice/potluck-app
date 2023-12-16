@@ -64,11 +64,17 @@ export default function AddEventModal({ isModalOpen, closeModal }: Props) {
     closeModal((prevState) => !prevState);
   }
 
+  function handleDialogOnClose() {
+    setEventName(null)
+    setEventDescription(null)
+    // @ts-expect-error
+    closeModal((prevState) => !prevState)
+  }
+
   return (
     <div>
       <Dialog
-        // @ts-expect-error
-        onClose={() => closeModal((prevState) => !prevState)}
+        onClose={handleDialogOnClose}
         // @ts-expect-error
         open={isModalOpen}
         fullWidth={true}

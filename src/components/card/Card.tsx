@@ -23,6 +23,7 @@ export default function Card({ event }: Props) {
     // event_description,
     event_location,
     event_date,
+    event_time,
     event_image,
   } = event;
 
@@ -71,7 +72,7 @@ export default function Card({ event }: Props) {
           Time
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          7:00 PM
+          {event_time}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

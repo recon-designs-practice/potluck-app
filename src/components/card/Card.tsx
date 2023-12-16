@@ -21,7 +21,7 @@ export default function Card({ event }: Props) {
     event_created_by,
     event_name,
     // event_description,
-    // event_location,
+    event_location,
     event_date,
     event_image,
   } = event;
@@ -55,13 +55,23 @@ export default function Card({ event }: Props) {
         // @ts-expect-error
         avatar={<Avatar src={creatorImage} />}
       />
-      <CardMedia component="img" height="200" image={event_image} />
+      <CardMedia component="img" height="140" image={event_image} />
       <CardContent>
-        {/* <Typography variant="body2" color="text.secondary">{event_description}</Typography> */}
+        <Typography variant="body1" mt={1} color="text.primary">
+          Where
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ height: "40px", overflow: "hidden" }}
+        >
+          {event_location}
+        </Typography>
+        <Typography variant="body1" mt={2} color="text.primary">
+          Time
+        </Typography>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          7:00 PM
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

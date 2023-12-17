@@ -9,6 +9,7 @@ import {
   Avatar,
   Button,
   Typography,
+  Unstable_Grid2 as Grid,
 } from "@mui/material";
 
 type Props = {
@@ -58,7 +59,29 @@ export default function Card({ event }: Props) {
       />
       <CardMedia component="img" height="140" image={event_image} />
       <CardContent>
-        <Typography variant="body1" mt={1} color="text.primary">
+        <Grid container spacing={2}>
+          <Grid xs={6}>
+            <Typography variant="body1" color="text.primary" sx={{ margin: '0px' }}>
+              Where
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ height: "40px", overflow: "hidden" }}
+            >
+              {event_location ? event_location : "Add location"}
+            </Typography>
+          </Grid>
+          <Grid xs={6}>
+            <Typography variant="body1" color="text.primary">
+              Time
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {event_time ? event_time : "Add time"}
+            </Typography>
+          </Grid>
+        </Grid>
+        {/* <Typography variant="body1" mt={1} color="text.primary">
           Where
         </Typography>
         <Typography
@@ -67,13 +90,13 @@ export default function Card({ event }: Props) {
           sx={{ height: "40px", overflow: "hidden" }}
         >
           {event_location ? event_location : "Add location"}
-        </Typography>
-        <Typography variant="body1" mt={2} color="text.primary">
+        </Typography> */}
+        {/* <Typography variant="body1" mt={2} color="text.primary">
           Time
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {event_time ? event_time : "Add time"}
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions disableSpacing>
         <div style={{ display: "flex", gap: "12px" }}>

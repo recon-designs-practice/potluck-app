@@ -7,14 +7,20 @@ assignees: recondesigns
 
 ---
 
-**Description**
-### Summaraize new feature, or change - include any motivations.
+## Description
+*Summaraize new feature, or change - include any motivations.*
 
-**Screenshots**
-### Include any screenshots or images.
+
+
+## Screenshots
+*Include any screenshots or images.*
+
+
 
 **AC**
+*Include the acceptable criteria.*
+
 - [ ] 
 
 **Additional**
-### Include any additional context.
+*Include any additional context.*

@@ -52,7 +52,7 @@ export default function Card({ event }: Props) {
             {event_name ? event_name : "Add name"}
           </Typography>
         }
-        subheader={event_date ? event_date : "Add date"}
+        // subheader={event_date ? event_date : "Add date"}
         disableTypography
         // @ts-expect-error
         avatar={<Avatar src={creatorImage} />}
@@ -61,7 +61,11 @@ export default function Card({ event }: Props) {
       <CardContent>
         <Grid container spacing={2}>
           <Grid xs={6}>
-            <Typography variant="body1" color="text.primary" sx={{ margin: '0px' }}>
+            <Typography
+              variant="body1"
+              color="text.primary"
+              sx={{ margin: "0px" }}
+            >
               Where
             </Typography>
             <Typography
@@ -77,26 +81,14 @@ export default function Card({ event }: Props) {
               Time
             </Typography>
             <Typography variant="body2" color="text.secondary">
+              {/* {event_time ? event_time : "Add time"} */}
+              {event_date ? event_date : "Add date"}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
               {event_time ? event_time : "Add time"}
             </Typography>
           </Grid>
         </Grid>
-        {/* <Typography variant="body1" mt={1} color="text.primary">
-          Where
-        </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ height: "40px", overflow: "hidden" }}
-        >
-          {event_location ? event_location : "Add location"}
-        </Typography> */}
-        {/* <Typography variant="body1" mt={2} color="text.primary">
-          Time
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {event_time ? event_time : "Add time"}
-        </Typography> */}
       </CardContent>
       <CardActions disableSpacing>
         <div style={{ display: "flex", gap: "12px" }}>

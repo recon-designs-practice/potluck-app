@@ -7,14 +7,14 @@ assignees: recondesigns
 
 ---
 
-**Reproduce**
-1. [ ] 
+**Description**
+### Summaraize new feature, or change - include any motivations.
 
 **Screenshots**
-n/a
+### Include any screenshots or images.
 
 **AC**
 - [ ] 
 
 **Additional**
-n/a
+### Include any additional context.

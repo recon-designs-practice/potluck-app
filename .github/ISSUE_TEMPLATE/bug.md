@@ -7,26 +7,31 @@ assignees: recondesigns
 
 ---
 
-**Description**
-### Summaraize the bug or issue.
+## Description
+*Summaraize the bug or issue*
 
-**Reproduce**
-### Include steps to reproduce the issue.
+## Reproduce
+*Include steps to reproduce the issue.*
+
 1. 
 
-**Expected behavior**
-### Describe the expected behavior.
+## Expected behavior
+*Describe the expected behavior.*
+
 1. 
 
-**Observed behavior**
-### Describe the observed behavior.
+## Observed behavior
+*Describe the observed behavior.*
+
 1. 
 
-**Screenshots**
-### Include any screenshots or images.
+## Screenshots
+*Include any screenshots or images.*
 
-**AC**
+## AC
+
 - [ ] 
 
-**Additional**
-### Include any additional context.
+## Additional
+*Include any additional context.*
+

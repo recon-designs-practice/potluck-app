@@ -1,8 +1,8 @@
-# Description
+## Description
+*Summary of changes. List any required dependencies for this change.*
 
-Summary of changes. List any required dependencies for this change.
-
-Fixes # (issue)
+### Fixes # (issue)
+*Summary of what issues this PR fixes.*
 
 ## Type of change
 
@@ -12,8 +12,7 @@ Fixes # (issue)
 - [ ] This change requires a documentation update
 
 # How Has This Been Tested?
-
-List any relevant details for your test configuration
+*List any relevant details for your test configuration*
 
 - [ ] Mobile
 - [ ] Desktop
@@ -27,3 +26,4 @@ List any relevant details for your test configuration
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
+
